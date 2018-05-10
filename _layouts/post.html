@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+{% include site-nav.html %}
+
+{% include header.html %}
+<article class="post" lang="{{ page.lang | default: site.lang | default: "en" }}" itemscope itemtype="http://schema.org/BlogPosting" >
+
+  <style media="screen">
+    .post-content > p:first-of-type::first-letter{
+      font-size: 4em;
+      color: #4e4e4e;
+      float: left;
+      line-height: 0.6;
+      margin-top: 5px;
+    }
+  </style>
+  <div class="post-content" itemprop="articleBody">
+    <h1 class="post-title" itemprop="name headline">{{ page.title | escape | replace: "​", "<wbr>" }}</h1>
+    {{ content }}
+  </div>
+
+  <footer class="post-footer">
+    <div class="post-meta">
+      {% if page.date %} <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%-d %b, %Y" }}</time> {% endif %}
+    </div>
+
+    {% if page.tags.size > 0 %}
+    <ul class="post-tags" aria-label="TagList">
+      {% for tag in page.tags %}
+      <li><a class="tag-link" href="{{ tag | url_encode | prepend: "/tags/" | relative_url }}">{{ tag | escape }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </footer>
+
+  {% if jekyll.environment == "production" and site.disqus_shortname and page.comments != false %}
+  {% include disqus.html %}
+  {% endif %}
+</article>
+
+<a class="page-link" style="display:inline-block;" href="{{ "/" | relative_url }}" >&larr;kembali</a>

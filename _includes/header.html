@@ -1,0 +1,42 @@
+<style media="screen">
+  .post-header a, .post-header h1, .post-header p{
+    border:none;
+    letter-spacing:5px;
+    margin:0;
+  }
+  .post-cover{
+     height:200vh;
+     margin-bottom: 20px;
+     background:url('{{ page.cover_url | relative_url }}');
+     background-repeat:no-repeat;
+     background-size:cover;
+     background-attachment:fixed;
+     background-position:center center;
+  }
+  .cover-meta{
+    font-family: inherit;
+    position: relative;
+    top: -40px;
+    right: 0;
+    transform: translateX(0);
+    font-size: 0.8em;
+  }
+   @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation:portrait) {
+    .post-cover{
+      max-height: 30vh;
+    }
+  }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation:landscape) {
+    .post-cover{
+      max-height: 50vh;
+    }
+  }
+</style>
+<header class="post-header">
+  <a href="{{ "/" | relative_url }}"><h1 style="display:inline-block;line-height:1.2">{{ site.description }}</h1></a>
+  <p>sambil minum kopi<img style="transform:rotateZ(20deg)" src="{{ "/uploads/coffee.png" | relative_url }}" width="16" height="16" alt="kopi"></p>
+</header>
+{% if page.cover_url %}
+<div class="post-cover" aria-label="Cover"></div>
+<div class="cover-meta">{{ page.cover_meta | markdownify }}</div>
+{% endif %}

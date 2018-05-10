@@ -1,0 +1,82 @@
+---
+layout: default
+published: true
+---
+
+{% include site-nav.html %}
+
+{% include header.html %}
+
+<style media="screen">
+li.post-list-item{
+  border-bottom: 2px dotted #dddddd;
+}
+li.post-list-item::after{
+  content: '';
+  clear: both;
+  display: block;
+}
+a.post-list-link{
+  float: left;
+}
+div.post-item-meta{
+  float: right;
+  padding: 5px;
+}
+.active{font-size: 0.8em;}
+li.post-list-item{
+  border-bottom: 2px dotted #dddddd;
+}
+li.post-list-item::after{
+  content: '';
+  clear: both;
+  display: block;
+}
+a.post-list-link{
+  float: left;
+}
+div.post-item-meta{
+  float: right;
+  padding: 5px;
+}
+</style>
+
+<ul class="post-list">
+  {% for rule in page.filter %}
+  {% assign posts = site.posts %}
+  {% if rule.by_tag %}
+  {% assign posts = posts | where_exp: "post", "post.tags contains rule.by_tag" %}
+  {% endif %}
+  {% if rule.by_category %}
+  {% assign posts = posts | where_exp: "post", "post.category == rule.by_category" %}
+  {% endif %}
+  {% if rule.by_expression %}
+  {% assign posts = posts | where_exp: "post", rule.by_expression %}
+  {% endif %}
+  {% for post in posts %}
+  {% assign posts = posts | append: " " | append: post.path %}
+  {% endfor %}
+  {% endfor %}
+  {% if posts %}
+  {% assign posts = posts | split: " " | sort | uniq %}
+  {% assign posts = site.posts | where_exp: "post", "posts contains post.path" %}
+  {% else %}
+  {% assign posts = paginator.posts %}
+  {% endif %}
+  {% for post in posts %}
+  <li class="post-list-item" data-tags="{{ post.tags | join: " " }}">
+    <a style="display:inline-block;width:70%;" class="post-item-link" href="{{ post.url | relative_url }}" data-date="{{ post.date | date: "%m-%d"  }}">
+      {{ post.title | escape }}
+    </a>
+    {% if post.description %}
+    <p class="post-description">{{ post.description }}</p>
+    {% endif %}
+    <div class="post-item-meta">
+      {{ post.date | date: "%-d %b, %Y" }}
+    </div>
+  </li>
+  {% endfor %}
+
+  {% include pagination.html %}
+
+</ul>
