@@ -15,11 +15,11 @@
 # in the templates via {{ site.myvariable }}.
 title: "Ngeblog"
 email: raden.naufal123@gmail.com
-description: "Nyantai Aja Dulu"
+description: "Beruang Tidur"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: naufalhfzhn
-github_username:  naufalhfzhn
+github_username:  beruangtidur
 instagram_username:  naufalhfzhn
 
 
